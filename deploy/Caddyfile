@@ -1,0 +1,19 @@
+{
+	email ops@dogyepaper.com
+	on_demand_tls {
+		ask http://api:8000/api/v1/public/tls-allowed
+	}
+}
+
+api.dogyepaper.com {
+	encode gzip
+	reverse_proxy api:8000
+}
+
+:443 {
+	tls {
+		on_demand
+	}
+	encode gzip
+	reverse_proxy frontend:3000
+}

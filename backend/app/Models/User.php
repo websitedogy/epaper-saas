@@ -30,7 +30,6 @@ class User extends Authenticatable
         'password',
         'status',
         'locale',
-        'reseller_id',
         'customer_id',
         'role_id',
         'last_login_at',
@@ -40,11 +39,6 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
-    }
-
-    public function reseller()
-    {
-        return $this->belongsTo(Reseller::class);
     }
 
     public function customer()

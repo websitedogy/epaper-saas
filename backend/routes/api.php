@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
             Route::get('infrastructure', \App\Http\Controllers\Api\V1\SuperAdmin\InfrastructureController::class);
             Route::get('clients', [\App\Http\Controllers\Api\V1\SuperAdmin\SuperAdminClientController::class, 'index']);
             Route::post('clients', [\App\Http\Controllers\Api\V1\SuperAdmin\SuperAdminClientController::class, 'store']);
+            Route::put('clients/{customer}', [\App\Http\Controllers\Api\V1\SuperAdmin\SuperAdminClientController::class, 'update']);
             Route::get('domains', [DomainController::class, 'index']);
             Route::post('domains', [DomainController::class, 'store']);
             Route::put('domains/{domain}', [DomainController::class, 'update']);

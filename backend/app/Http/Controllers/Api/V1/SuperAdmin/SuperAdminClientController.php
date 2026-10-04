@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\SuperAdmin;
 
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\SuperAdmin\StoreCustomerRequest;
+use App\Http\Requests\Api\V1\SuperAdmin\UpdateCustomerRequest;
 use App\Mail\TenantWelcomeMail;
 use App\Models\Customer;
 use App\Models\Domain;
@@ -155,6 +156,43 @@ class SuperAdminClientController extends BaseApiController
         }
 
         return $this->successResponse($payload, 'Client and tenant admin created successfully', 201);
+    }
+
+    public function update(UpdateCustomerRequest $request, Customer $customer): JsonResponse
+    {
+        $this->authorize('update', $customer);
+
+        $data = $request->validated();
+        $data['domain_name'] = app(DomainVerificationService::class)->normalize((string) $data['domain_name']);
+        $data['default_domain'] = $data['domain_name'];
+        $data['name'] = trim((string) $data['name']);
+        $data['email'] = strtolower(trim((string) $data['email']));
+        $data['phone_number'] = trim((string) $data['phone_number']);
+        $data['paper_name'] = trim((string) $data['paper_name']);
+        $data['state'] = trim((string) $data['state']);
+        $data['district'] = trim((string) $data['district']);
+
+        DB::transaction(function () use ($customer, $data): void {
+            $previousDomain = $customer->domain_name;
+            $customer->update($data);
+
+            $domain = $customer->domains()->where('is_primary', true)->first()
+                ?? $customer->domains()->where('domain', $previousDomain)->first();
+
+            if (! $domain) {
+                return;
+            }
+
+            $attributes = ['brand_name' => $customer->paper_name];
+            if ($domain->domain !== $customer->domain_name) {
+                $attributes['domain'] = $customer->domain_name;
+                $attributes = array_merge($attributes, TenantContext::localReadyAttributes($customer->domain_name));
+            }
+
+            $domain->update($attributes);
+        });
+
+        return $this->successResponse($customer->fresh(), 'Client updated successfully');
     }
 
     private function tenantLoginUrl(string $domain): string

@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Bot,
-  Building2,
   Check,
   FileUp,
   Globe2,
@@ -20,7 +19,7 @@ import { Button } from "@/components/ui/button";
 const capabilities = [
   { value: "PDF → pages", label: "Print-ready upload" },
   { value: "White-label", label: "Your domain, your masthead" },
-  { value: "Multi-tenant", label: "Titles, resellers, groups" },
+  { value: "Multi-tenant", label: "Titles and groups" },
   { value: "AI briefs", label: "Editorial summaries on demand" },
 ];
 
@@ -53,7 +52,7 @@ const features = [
   {
     icon: ShieldCheck,
     title: "Roles that match a newsroom",
-    body: "Platform, reseller, and publisher access are separated, so agencies can white-label without touching another title.",
+    body: "Platform and publisher access are separated, so each title stays isolated from the others.",
   },
 ];
 
@@ -82,11 +81,6 @@ const audiences = [
     body: "Keep the print ritual. Give subscribers a digital edition that still looks like your paper, not a blog.",
   },
   {
-    icon: Building2,
-    title: "Resellers & agencies",
-    body: "White-label the stack, onboard publishers under your brand, and operate every customer from one desk.",
-  },
-  {
     icon: Users,
     title: "Media groups",
     body: "Run multiple titles with shared operations and strict data isolation across every masthead.",
@@ -103,7 +97,7 @@ export function MarketingHome() {
         "@type": "SoftwareApplication",
         name: "Dogy ePaper",
         applicationCategory: "BusinessApplication",
-        description: "Multi-tenant digital ePaper publishing platform for newspapers, resellers, and media groups.",
+        description: "Multi-tenant digital ePaper publishing platform for newspapers and media groups.",
         url: siteUrl,
       },
     ],
@@ -128,7 +122,7 @@ export function MarketingHome() {
                 Publish a branded newspaper that still feels like print.
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-                Dogy is the multi-tenant ePaper platform for publishers, resellers, and media groups. Upload the edition, keep the masthead, and go live on your own domain.
+                Dogy is the multi-tenant ePaper platform for publishers and media groups. Upload the edition, keep the masthead, and go live on your own domain.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Button asChild size="lg" className="rounded-full bg-[#12324a] px-6 hover:bg-[#0d2436]">
@@ -142,7 +136,7 @@ export function MarketingHome() {
                 </Button>
               </div>
               <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
-                {["No redesign of the paper", "Custom domains", "Reseller-ready"].map((item) => (
+                {["No redesign of the paper", "Custom domains", "Isolated tenants"].map((item) => (
                   <li key={item} className="flex items-center gap-2">
                     <Check className="h-4 w-4 text-[#8a6a32]" />
                     {item}
@@ -211,9 +205,9 @@ export function MarketingHome() {
           <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8">
             <div className="max-w-2xl">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8a6a32]">Solutions</p>
-              <h2 className="font-display mt-3 text-4xl tracking-tight text-[#12324a]">One platform, three kinds of publisher.</h2>
+              <h2 className="font-display mt-3 text-4xl tracking-tight text-[#12324a]">One platform for newspapers and media groups.</h2>
             </div>
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 lg:grid-cols-2">
               {audiences.map((item) => (
                 <article key={item.title} className="rounded-[28px] bg-[#12324a] p-7 text-[#f4efe6]">
                   <item.icon className="h-6 w-6 text-[#d9b48a]" />
@@ -231,7 +225,7 @@ export function MarketingHome() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8a6a32]">Platform</p>
               <h2 className="font-display mt-3 text-4xl tracking-tight text-[#12324a]">A foundation that can carry more than one masthead.</h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
-                Super admin, reseller, and tenant newsrooms sit on the same stack, with tenant-aware data, queues, and a public reader for every published edition.
+                Super admin and tenant newsrooms sit on the same stack, with tenant-aware data, queues, and a public reader for every published edition.
               </p>
               <ul className="mt-8 space-y-3 text-sm text-slate-700">
                 {[
@@ -250,8 +244,7 @@ export function MarketingHome() {
               <p className="text-sm font-medium text-slate-500">Operating model</p>
               <div className="mt-6 space-y-4">
                 {[
-                  { role: "Platform owner", detail: "Customers, resellers, domains, security" },
-                  { role: "Reseller", detail: "White-label titles under one agency desk" },
+                  { role: "Platform owner", detail: "Customers, domains, security" },
                   { role: "Publisher", detail: "Categories, uploads, AI, live editions" },
                 ].map((item, index) => (
                   <div key={item.role} className="flex items-center justify-between gap-4 border-b border-slate-100 pb-4 last:border-0 last:pb-0">
@@ -290,7 +283,7 @@ export function MarketingHome() {
         <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-10 sm:flex-row sm:items-end sm:justify-between lg:px-8">
           <div>
             <p className="font-display text-2xl text-[#12324a]">Dogy ePaper</p>
-            <p className="mt-2 max-w-sm text-sm text-slate-500">Digital newspaper publishing for independent titles, resellers, and media groups.</p>
+            <p className="mt-2 max-w-sm text-sm text-slate-500">Digital newspaper publishing for independent titles and media groups.</p>
           </div>
           <div className="flex flex-wrap gap-5 text-sm text-slate-600">
             <Link href="/login" className="hover:text-[#12324a]">

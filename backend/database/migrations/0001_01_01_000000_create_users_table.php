@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('reseller_id')->nullable();
             $table->uuid('customer_id')->nullable();
             $table->uuid('role_id')->nullable();
             $table->string('name');
@@ -27,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['reseller_id', 'customer_id', 'role_id']);
+            $table->index(['customer_id', 'role_id']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

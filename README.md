@@ -16,7 +16,6 @@ This foundation follows a scalable multi-tenant SaaS pattern with a separate Lar
 ### Tenant model
 The platform uses a customer-first tenant model:
 - Dogy Super Admin is the platform owner
-- Reseller owns a set of customers
 - Customer owns the brand and ePaper data
 - Domains map to customers through `domains.customer_id`
 
@@ -26,7 +25,7 @@ Request-level tenant resolution is centralized in `ResolveTenantFromRequest`, wh
 - Next.js App Router
 - TypeScript + Tailwind CSS
 - Reusable admin dashboard primitives built in a shadcn-inspired style
-- Separate routes for `/super-admin`, `/reseller`, and `/customer`
+- Separate routes for `/super-admin`, `/tenant-admin`, and `/customer`
 - No business modules added yet; only the shell and foundation pages are present
 
 ### Security and operational baseline

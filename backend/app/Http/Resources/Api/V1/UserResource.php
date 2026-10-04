@@ -19,7 +19,6 @@ class UserResource extends JsonResource
             'status' => $this->status,
             'locale' => $this->locale,
             'role_id' => $this->role_id,
-            'reseller_id' => $this->reseller_id,
             'customer_id' => $this->customer_id,
             'roles' => $this->relationLoaded('roles')
                 ? $this->roles->pluck('slug')->values()->all()

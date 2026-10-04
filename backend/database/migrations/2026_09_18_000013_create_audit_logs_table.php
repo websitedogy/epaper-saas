@@ -12,7 +12,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignUuid('customer_id')->nullable()->constrained('customers')->nullOnDelete();
-            $table->foreignUuid('reseller_id')->nullable()->constrained('resellers')->nullOnDelete();
             $table->string('event');
             $table->string('subject_type')->nullable();
             $table->uuid('subject_id')->nullable();
@@ -23,7 +22,6 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->index(['customer_id', 'event']);
-            $table->index(['reseller_id', 'event']);
         });
     }
 

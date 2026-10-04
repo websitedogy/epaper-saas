@@ -18,7 +18,6 @@ class ResolveTenantFromRequest
             $request->attributes->set('resolved_domain', null);
             $request->attributes->set('central_domain', true);
             $request->attributes->set('tenant_customer_id', null);
-            $request->attributes->set('tenant_reseller_id', null);
 
             return $next($request);
         }
@@ -32,7 +31,6 @@ class ResolveTenantFromRequest
         $request->attributes->set('resolved_domain', $domain);
         $request->attributes->set('central_domain', ! $domain || ! $domain->customer_id);
         $request->attributes->set('tenant_customer_id', $domain?->customer_id);
-        $request->attributes->set('tenant_reseller_id', $domain?->customer?->reseller_id);
 
         return $next($request);
     }

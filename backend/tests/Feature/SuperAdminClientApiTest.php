@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use App\Models\Domain;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -65,6 +66,58 @@ class SuperAdminClientApiTest extends TestCase
             'name' => 'Acme Journal',
             'email' => 'client@acme.com',
             'status' => 'pending',
+        ]);
+    }
+
+    public function test_super_admin_can_update_a_client(): void
+    {
+        $admin = $this->actingAsSuperAdmin();
+        $customer = Customer::query()->create([
+            'name' => 'ABC News',
+            'email' => 'abcnews@example.com',
+            'phone_number' => '0000000000',
+            'domain_name' => 'abcnews.localhost',
+            'default_domain' => 'abcnews.localhost',
+            'paper_name' => 'ABC News',
+            'state' => 'Telangana',
+            'district' => 'Hyderabad',
+            'status' => 'active',
+        ]);
+        Domain::query()->create([
+            'customer_id' => $customer->id,
+            'domain' => 'abcnews.localhost',
+            'brand_name' => 'ABC News',
+            'is_primary' => true,
+            'domain_status' => 'active',
+            'verification_status' => 'active',
+            'ssl_status' => 'active',
+        ]);
+
+        $response = $this->actingAs($admin, 'web')->putJson('/api/v1/super-admin/clients/'.$customer->id, [
+            'name' => 'ABC News Daily',
+            'email' => 'desk@abcnews.example',
+            'phone_number' => '9999999999',
+            'domain_name' => 'abcnews.localhost',
+            'paper_name' => 'ABC Daily',
+            'state' => 'Telangana',
+            'district' => 'Hyderabad',
+            'status' => 'pending',
+        ]);
+
+        $response->assertOk()
+            ->assertJsonPath('data.name', 'ABC News Daily')
+            ->assertJsonPath('data.status', 'pending');
+
+        $this->assertDatabaseHas('customers', [
+            'id' => $customer->id,
+            'name' => 'ABC News Daily',
+            'paper_name' => 'ABC Daily',
+            'status' => 'pending',
+        ]);
+        $this->assertDatabaseHas('domains', [
+            'customer_id' => $customer->id,
+            'domain' => 'abcnews.localhost',
+            'brand_name' => 'ABC Daily',
         ]);
     }
 }

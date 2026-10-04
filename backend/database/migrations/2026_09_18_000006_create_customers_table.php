@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('reseller_id')->nullable()->constrained('resellers')->nullOnDelete();
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
@@ -29,7 +28,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('reseller_id');
             $table->index('email');
             $table->index('status');
         });

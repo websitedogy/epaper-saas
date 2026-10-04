@@ -40,11 +40,6 @@ class TenantContext
         return $request->attributes->get('tenant_customer_id');
     }
 
-    public static function currentResellerId(Request $request): ?string
-    {
-        return $request->attributes->get('tenant_reseller_id');
-    }
-
     public static function resolveFromHost(string $host): ?Customer
     {
         return self::resolveDomain($host)?->customer;

@@ -11,7 +11,6 @@ class Customer extends Model
     use HasUuids, SoftDeletes;
 
     protected $fillable = [
-        'reseller_id',
         'name',
         'email',
         'phone_number',
@@ -41,11 +40,6 @@ class Customer extends Model
             $customer->domain_name ??= $customer->default_domain;
             $customer->status ??= 'pending';
         });
-    }
-
-    public function reseller()
-    {
-        return $this->belongsTo(Reseller::class);
     }
 
     public function domains()

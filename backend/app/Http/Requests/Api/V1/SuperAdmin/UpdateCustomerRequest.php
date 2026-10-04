@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Api\V1\SuperAdmin;
 
-use App\Support\TenantContext;
+use App\Models\Customer;
+use App\Models\Domain;
 use App\Services\DomainVerificationService;
+use App\Support\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreCustomerRequest extends FormRequest
+class UpdateCustomerRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,17 +18,27 @@ class StoreCustomerRequest extends FormRequest
 
     public function rules(): array
     {
+        $customer = $this->route('customer');
+        $customerId = $customer instanceof Customer ? $customer->id : $customer;
+        $primaryDomainId = $customer instanceof Customer
+            ? Domain::query()->where('customer_id', $customer->id)->where('is_primary', true)->value('id')
+            : null;
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:customers,email'],
-            'tenant_email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
-            'tenant_password' => ['required', 'string', 'min:8', 'max:255'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('customers', 'email')->ignore($customerId)],
             'phone_number' => ['required', 'string', 'max:30'],
-            'domain_name' => ['required', 'string', 'max:255', 'unique:customers,domain_name', 'unique:domains,domain'],
+            'domain_name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('customers', 'domain_name')->ignore($customerId),
+                Rule::unique('domains', 'domain')->ignore($primaryDomainId),
+            ],
             'paper_name' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
             'district' => ['required', 'string', 'max:255'],
-            'status' => ['sometimes', 'string', 'in:pending,active,suspended,expired'],
+            'status' => ['required', 'string', 'in:pending,active,suspended,expired'],
         ];
     }
 

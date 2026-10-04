@@ -12,7 +12,6 @@ class RolePermissionSeeder extends Seeder
     {
         $roles = [
             ['name' => 'Super Admin', 'slug' => 'super-admin', 'guard_name' => 'web'],
-            ['name' => 'Reseller Admin', 'slug' => 'reseller-admin', 'guard_name' => 'web'],
             ['name' => 'Customer Admin', 'slug' => 'customer-admin', 'guard_name' => 'web'],
         ];
 
@@ -25,9 +24,7 @@ class RolePermissionSeeder extends Seeder
 
         $permissions = [
             'view_platform',
-            'manage_resellers',
             'manage_customers',
-            'view_reseller_customers',
             'manage_own_epaper',
             'view_own_epaper',
             'view_audit_logs',
@@ -43,5 +40,20 @@ class RolePermissionSeeder extends Seeder
                 ],
             );
         }
+
+        $resellerRole = Role::withTrashed()->where('slug', 'reseller-admin')->first();
+        if ($resellerRole) {
+            $resellerRole->users()->detach();
+            $resellerRole->permissions()->detach();
+            $resellerRole->forceDelete();
+        }
+
+        Permission::withTrashed()
+            ->whereIn('slug', ['manage_resellers', 'view_reseller_customers'])
+            ->get()
+            ->each(function (Permission $permission): void {
+                $permission->roles()->detach();
+                $permission->forceDelete();
+            });
     }
 }

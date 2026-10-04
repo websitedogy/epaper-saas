@@ -28,7 +28,7 @@ class AuthService
         $tenantId = TenantContext::currentCustomerId($request);
         $isCentral = (bool) $request->attributes->get('central_domain');
         $allowed = $isCentral
-            ? $user->hasAnyRole(['super-admin', 'super_admin', 'reseller-admin'])
+            ? $user->hasAnyRole(['super-admin', 'super_admin'])
             : $user->customer_id === $tenantId && $user->hasAnyRole(['customer-admin']);
 
         if (! $allowed) {

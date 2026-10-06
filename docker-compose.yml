@@ -32,7 +32,10 @@ services:
     env_file:
       - backend/.env
     environment:
-      APP_URL: http://api:8000
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: ${APP_URL:-https://api.dogyepaper.com}
+      APP_FRONTEND_URL: ${APP_FRONTEND_URL:-https://dogyepaper.com}
       DB_HOST: postgres
       REDIS_HOST: redis
       QUEUE_CONNECTION: redis
@@ -87,8 +90,8 @@ services:
       context: .
       dockerfile: deploy/Dockerfile.frontend
       args:
-        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-https://api.dogyepaper.com}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://dogyepaper.com}
         NEXT_PUBLIC_CENTRAL_HOSTS: ${NEXT_PUBLIC_CENTRAL_HOSTS:-dogyepaper.com,www.dogyepaper.com}
     ports:
       - "3000:3000"

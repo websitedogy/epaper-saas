@@ -1,7 +1,7 @@
 const configuredApiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 const developmentApiBaseUrl = typeof window !== "undefined" && window.location.hostname.endsWith(".localhost")
   ? `${window.location.protocol}//${window.location.hostname}:8000`
-  : "http://localhost:8000";
+  : "https://api.dogyepaper.com";
 
 export const API_BASE_URL = configuredApiBaseUrl ?? developmentApiBaseUrl;
 export const API_TOKEN_KEY = "dogy_api_token";

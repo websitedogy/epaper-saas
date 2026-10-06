@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('app:backup')->dailyAt((string) config('backup.daily_at', '02:15'));
     })
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
         $middleware->prepend(AllowTenantCors::class);
         $middleware->alias([
             'tenant' => ResolveTenantFromRequest::class,

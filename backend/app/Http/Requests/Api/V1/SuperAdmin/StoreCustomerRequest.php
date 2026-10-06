@@ -44,7 +44,7 @@ class StoreCustomerRequest extends FormRequest
         $validator->after(function ($validator): void {
             $domain = (string) $this->input('domain_name');
             if ($domain !== '' && TenantContext::isCentralHost($domain)) {
-                $validator->errors()->add('domain_name', 'Use a tenant hostname such as paper.localhost, not the platform host.');
+                $validator->errors()->add('domain_name', 'Use a tenant hostname such as paper.dogyepaper.com, not the platform host.');
             }
         });
     }

@@ -88,7 +88,7 @@ const audiences = [
 ];
 
 export function MarketingHome() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dogyepaper.com";
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [

@@ -125,7 +125,7 @@ export default function SuperAdminPage() {
     setLoading(true);
     setMessage(null);
 
-    const response = await fetch("http://localhost:8000/api/v1/super-admin/clients", {
+    const response = await fetch(`${API_BASE_URL}/api/v1/super-admin/clients`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -334,11 +334,11 @@ export default function SuperAdminPage() {
                   <label className="space-y-2 text-sm text-slate-700">
                     <span>Tenant admin login email</span>
                     <input type="email" value={form.tenant_email} onChange={(event) => setForm({ ...form, tenant_email: event.target.value })} className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none ring-0" placeholder="admin@client-domain.com" required />
-                    <span className="block text-xs text-slate-500">Use a unique email. For local testing use a hostname like paper.localhost</span>
+                    <span className="block text-xs text-slate-500">Use a unique email. Tenant hostnames look like paper.dogyepaper.com</span>
                   </label>
                   <label className="space-y-2 text-sm text-slate-700">
                     <span>Domain name</span>
-                    <input value={form.domain_name} onChange={(event) => setForm({ ...form, domain_name: event.target.value })} className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none ring-0" placeholder="paper.localhost" required />
+                    <input value={form.domain_name} onChange={(event) => setForm({ ...form, domain_name: event.target.value })} className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none ring-0" placeholder="paper.dogyepaper.com" required />
                   </label>
                 </div>
 

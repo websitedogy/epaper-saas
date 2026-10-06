@@ -52,8 +52,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
-    'frontend_url' => env('APP_FRONTEND_URL', 'http://localhost:3000'),
+    'url' => env('APP_URL', 'https://api.dogyepaper.com'),
+    'frontend_url' => env('APP_FRONTEND_URL', 'https://dogyepaper.com'),
 
     /*
     |--------------------------------------------------------------------------

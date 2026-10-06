@@ -197,7 +197,7 @@ class SuperAdminClientController extends BaseApiController
 
     private function tenantLoginUrl(string $domain): string
     {
-        $frontend = (string) config('app.frontend_url', 'http://localhost:3000');
+        $frontend = (string) config('app.frontend_url', 'https://dogyepaper.com');
         $scheme = parse_url($frontend, PHP_URL_SCHEME) ?: 'http';
         $port = parse_url($frontend, PHP_URL_PORT);
 

@@ -8,7 +8,7 @@ import { formatEditionDate, type PublicEdition, type PublicEditionSummary, type 
 
 type Panel = "archives" | "about" | "vision" | "mission" | null;
 
-const navItems: Array<{ id: Exclude<Panel, "archives"> | "home"; label: string }> = [
+const navItems: Array<{ id: "home" | "about" | "vision" | "mission"; label: string }> = [
   { id: "home", label: "Home" },
   { id: "vision", label: "Vision" },
   { id: "about", label: "About Us" },
@@ -76,28 +76,28 @@ export function PaperViewer({
             </span>
           </Link>
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-            {navItems.map((item) =>
-              item.id === "home" ? (
-                <Link key={item.id} href="/" className="hover:text-white/80">
-                  {item.label}
+            {navItems.map(({ id, label }) =>
+              id === "home" ? (
+                <Link key={id} href="/" className="hover:text-white/80">
+                  {label}
                 </Link>
               ) : (
-                <button key={item.id} type="button" onClick={() => setPanel(item.id)} className="hover:text-white/80">
-                  {item.label}
+                <button key={id} type="button" onClick={() => setPanel(id)} className="hover:text-white/80">
+                  {label}
                 </button>
               ),
             )}
           </nav>
         </div>
         <nav className="flex items-center gap-4 overflow-x-auto px-4 pb-3 text-sm font-medium md:hidden">
-          {navItems.map((item) =>
-            item.id === "home" ? (
-              <Link key={item.id} href="/" className="shrink-0 hover:text-white/80">
-                {item.label}
+          {navItems.map(({ id, label }) =>
+            id === "home" ? (
+              <Link key={id} href="/" className="shrink-0 hover:text-white/80">
+                {label}
               </Link>
             ) : (
-              <button key={item.id} type="button" onClick={() => setPanel(item.id)} className="shrink-0 hover:text-white/80">
-                {item.label}
+              <button key={id} type="button" onClick={() => setPanel(id)} className="shrink-0 hover:text-white/80">
+                {label}
               </button>
             ),
           )}

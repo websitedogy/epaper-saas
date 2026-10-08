@@ -6,7 +6,7 @@ This foundation follows a scalable multi-tenant SaaS pattern with a separate Lar
 
 ### Backend defaults
 - Laravel 12 on PHP 8.3
-- PostgreSQL as the primary database for tenant and account data
+- MySQL 8 as the primary database for tenant and account data
 - Redis for cache, queue, and session storage
 - Laravel Sanctum for API token authentication
 - Service layer for business logic, with controllers handling transport concerns only
@@ -49,7 +49,7 @@ Frontend:
 The project currently contains the foundation and architecture required for the next phases:
 - Laravel backend scaffolded
 - Next.js frontend scaffolded
-- PostgreSQL and Redis config prepared
+- MySQL and Redis config prepared
 - API versioning and auth foundation added
 - Multi-tenant and role foundation created
 - Database migrations for core SaaS tables prepared

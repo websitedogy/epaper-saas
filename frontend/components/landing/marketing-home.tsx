@@ -231,7 +231,7 @@ export function MarketingHome() {
                 {[
                   "Laravel API with Sanctum, policies, and queued jobs",
                   "Next.js reader and dashboards for every role",
-                  "PostgreSQL isolation with Redis for cache and work",
+                  "MySQL tenant isolation with Redis for cache and work",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6a32]" />

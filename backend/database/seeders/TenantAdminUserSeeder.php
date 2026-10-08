@@ -24,6 +24,7 @@ class TenantAdminUserSeeder extends Seeder
             ['domain_name' => $domainName],
             [
                 'name' => 'ABC News',
+                'slug' => 'abc-news',
                 'email' => 'abcnews@example.com',
                 'phone_number' => '0000000000',
                 'paper_name' => 'ABC News',

@@ -59,22 +59,24 @@ class BackupApplication extends Command
             return;
         }
 
-        if (($config['driver'] ?? '') === 'pgsql') {
-            $command = sprintf(
-                'pg_dump --clean --if-exists --no-owner --dbname=postgresql://%s:%s@%s:%s/%s',
-                rawurlencode((string) $config['username']),
-                rawurlencode((string) $config['password']),
-                $config['host'],
-                $config['port'] ?? 5432,
+        if (in_array($config['driver'] ?? '', ['mysql', 'mariadb'], true)) {
+            $process = new Process([
+                'mysqldump',
+                '--single-transaction',
+                '--quick',
+                '--routines',
+                '--no-tablespaces',
+                '--host='.$config['host'],
+                '--port='.($config['port'] ?? 3306),
+                '--user='.$config['username'],
+                '--result-file='.$tempPath,
                 $config['database'],
-            );
-            $process = Process::fromShellCommandline($command);
+            ], null, ['MYSQL_PWD' => (string) ($config['password'] ?? '')]);
             $process->setTimeout(300);
             $process->run();
             if (! $process->isSuccessful()) {
-                throw new \RuntimeException(trim($process->getErrorOutput()) ?: 'pg_dump failed.');
+                throw new \RuntimeException(trim($process->getErrorOutput()) ?: 'mysqldump failed.');
             }
-            file_put_contents($tempPath, $process->getOutput());
 
             return;
         }

@@ -18,6 +18,11 @@ class AllowTenantCors
 
         $response = $next($request);
 
+        return $this->applyCorsHeaders($request, $response);
+    }
+
+    public function applyCorsHeaders(Request $request, Response $response): Response
+    {
         if ($this->allowedOrigin($request)) {
             foreach ($this->corsHeaders($request) as $key => $value) {
                 $response->headers->set($key, $value);
